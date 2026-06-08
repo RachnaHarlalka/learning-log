@@ -1,3 +1,5 @@
+export {};
+
 function isPallindrone(word: string) {
   let i = 0;
   let cleanedWord = word.toLowerCase().replaceAll(" ", "");
