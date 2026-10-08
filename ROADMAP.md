@@ -8,6 +8,13 @@
 
 ## How to use this roadmap
 
+### Workflow for each topic
+1. **You share** the chapter text or notes for the topic.
+2. **Claude creates** the week folder from *that material*: summarized `notes.md`, **scenario-based** MCQs and interview-style questions (testing whether you can apply the concepts, not recall the text), starter code, tests, reference solutions, and `videos.md` (real video links for each topic: Engineering Digest, Gaurav Sen, or Shrayansh first, other channels where they don't cover it).
+3. **You** read, watch, take the MCQs (`python3 tools/check_mcqs.py weeks/<week>`), attempt everything in `solved/`, then compare with `solutions/`.
+
+The per-week builds and questions listed further down are a **preview only**. The real ones are generated from the notes you share, so they may differ.
+
 ### Each channel has one job
 | Source | Job | When |
 |---|---|---|
@@ -32,18 +39,32 @@
 | Sat | Python build |
 | Sun | Practice questions and the design problem |
 
-### Folder structure
+### Folder structure (same for every week)
+See [weeks/week-00-tradeoffs/](weeks/week-00-tradeoffs/) for a complete example.
 ```
 learning-log/
   ROADMAP.md
   parking-lot.md
   weeks/
-    week-01-latency-availability/
-      notes.md
-      questions.md      # your answers to the practice questions
-      design.md         # your design-problem attempt
-      code/
+    week-NN-topic/
+      README.md              # week overview, order of work, checklist
+      notes.md               # summarized notes from the material you share, plus "My additions"
+      videos.md              # video for each topic (your 3 channels first, others where they don't cover it)
+      questions/
+        mcqs.md              # ~25 MCQs to test recall after reading
+        questions.md         # Part A concepts, Part B Python builds, Part C design
+      solved/                # YOUR attempts: do these first
+        mcq-answers.md       # your MCQ letters (scored by tools/check_mcqs.py)
+        answers.md           # your Part A answers + review table
+        design.md            # your design attempt (template)
+        code/                # starter stubs with TODOs + test file
+      solutions/             # reference answers: open only after attempting
+        mcq-answers.md       # MCQ key with explanations
+        answers.md
+        design.md
+        code/                # reference implementations (pass the same tests)
 ```
+**Tests:** from the week folder, `python3 solved/code/test_weekNN.py` checks your code, and `WEEK_IMPL=solutions python3 solved/code/test_weekNN.py` checks the reference code.
 
 ---
 
