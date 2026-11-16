@@ -71,9 +71,9 @@ learning-log/
 
 | Week | Topic | Read | Build | Questions | Design |
 |---|---|---|---|---|---|
-| 0 | Trade-offs and setup (Ch1) | [ ] | [ ] | [ ] | [ ] |
-| 1 | Latency and availability (Ch2) | [ ] | [ ] | [ ] | [ ] |
-| 2 | Scalability and load balancing (Ch2) | [ ] | [ ] | [ ] | [ ] |
+| 0 | [Trade-offs (Ch1)](weeks/week-00-tradeoffs/) | [ ] | [ ] | [ ] | [ ] |
+| 1 | [Nonfunctional requirements: performance, reliability, scalability (Ch2)](weeks/week-01-nonfunctional-requirements/) | [ ] | [ ] | [ ] | [ ] |
+| 2 | *Merged into Week 1, since all of Ch2 is one folder.* Use it as a buffer week. | – | – | – | – |
 | 3 | Relational vs document (Ch3) | [ ] | [ ] | [ ] | [ ] |
 | 4 | Graphs and event sourcing (Ch3) | [ ] | [ ] | [ ] | [ ] |
 | 5 | Logs and hash indexes (Ch4) | [ ] | [ ] | [ ] | [ ] |
