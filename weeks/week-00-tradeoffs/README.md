@@ -9,16 +9,16 @@
 |---|---|---|
 | [notes.md](notes.md) | Summarized chapter notes, plus a **My additions** section | Summary given, additions yours |
 | [videos.md](videos.md) | Video for each topic, from your 3 channels, or others where they don't cover it | Given |
-| [questions/mcqs.md](questions/mcqs.md) | 32 scenario-based MCQs that test whether you can apply the concepts | Given |
+| [questions/mcqs.md](questions/mcqs.md) | 32 scenario-based MCQs. **Answer directly under each question.** | Given, answers yours |
 | [questions/questions.md](questions/questions.md) | Part A: 12 interview scenarios · Part B: Python builds · Part C: a full design round with follow-ups | Given |
-| [solved/](solved/) | **Your attempts**: MCQ answers, written answers, design, code | You |
+| [solved/](solved/) | **Your attempts**: written answers, design, code | You |
 | [solutions/](solutions/) | MCQ key, reference answers, design, and code | Given |
 
 > **Rule:** finish your attempt in `solved/` *before* opening `solutions/`.
 
 ## Order of work (4–5 days)
 1. Read the chapter alongside [notes.md](notes.md). Watch videos from [videos.md](videos.md) at the points it suggests.
-2. **MCQs:** answer them in [solved/mcq-answers.md](solved/mcq-answers.md), then check your score: `python3 tools/check_mcqs.py weeks/week-00-tradeoffs` (from the repo root). Re-read the topics you got wrong.
+2. **MCQs:** type your letter on the **Your answer:** line under each question in [questions/mcqs.md](questions/mcqs.md), then check your score: `python3 tools/check_mcqs.py weeks/week-00-tradeoffs` (from the repo root). Re-read the topics you got wrong.
 3. Part A: answer the interview scenarios in [solved/answers.md](solved/answers.md). Answer them out loud first if you can, as in a real interview.
 4. Part B builds in [solved/code/](solved/code/). Run the tests until they pass.
 5. Part C design in [solved/design.md](solved/design.md)

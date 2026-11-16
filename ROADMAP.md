@@ -51,10 +51,9 @@ learning-log/
       notes.md               # summarized notes from the material you share, plus "My additions"
       videos.md              # video for each topic (your 3 channels first, others where they don't cover it)
       questions/
-        mcqs.md              # ~25 MCQs to test recall after reading
+        mcqs.md              # scenario MCQs, answered in place ("Your answer:" line per question)
         questions.md         # Part A concepts, Part B Python builds, Part C design
       solved/                # YOUR attempts: do these first
-        mcq-answers.md       # your MCQ letters (scored by tools/check_mcqs.py)
         answers.md           # your Part A answers + review table
         design.md            # your design attempt (template)
         code/                # starter stubs with TODOs + test file
