@@ -1,160 +1,210 @@
-# learning-log — Python 🐍
+# 15-Day Python + Database Interview Prep (Nov 16 – Nov 30, 2026)
 
-A personal learning log tracking my growth as a fullstack developer — covering AI/LLM concepts, frontend, backend, and everything in between. One branch per skill.
+Branch `python` of my learning log. I'm preparing for **client interviews for full-stack projects** at my association.
+I study **1 hour per day**: **30 min Python + 30 min Database (PostgreSQL / SQL)**.
+Everything is **interview-oriented**: concepts I can explain clearly, code I can write live, and answers to the questions clients actually ask.
 
-This branch (`python`) is a **42-day, 1-hour-a-day** hands-on Python plan. It skips "what is a variable" because I already know JavaScript, and goes for **confidence writing idiomatic Python**: Python's own data model, the idioms, OOP, generators, decorators, typing, testing, async, and DSA in Python.
+> The earlier 42-day Python-only plan is paused. It lives in [archive/42-day-plan/](archive/42-day-plan/README.md) (see the bottom of this page).
 
 ---
 
 ## How each day works
 
 ```
-days/
-└── day-01-python-through-js-eyes/
-    ├── notes.md           # brief notes: key concepts, JS ↔ Python comparison, links
-    ├── questions.md       # the day's problems (warm-up → core → challenge)
-    ├── practice.ipynb     # MY workspace: one cell per question, solve here
-    └── solutions.ipynb    # reference solutions + why they're the "Pythonic" way
+days/day-NN/
+├── python/
+│   ├── theory.md        # concepts + interview Q&A
+│   ├── practice.py      # exercises with TODOs + function stubs
+│   └── test_practice.py # pytest tests so I can self-check
+├── database/
+│   ├── theory.md        # concepts + interview Q&A
+│   ├── setup.sql        # tables + sample data (only if new tables are needed)
+│   └── practice.sql     # numbered query exercises
+└── solutions/           # created ONLY on "show solutions day N"
+project/                 # the Task Manager, one small feature added per day
 ```
 
 **The 1-hour routine**
 
 | Time | What |
-|------|------|
-| 10 min | Read the day's `notes.md` and skim the linked resource |
-| 40 min | Solve `questions.md` in `practice.ipynb`, **without** opening solutions |
-| 10 min | Compare with `solutions.ipynb`, note what I'd change, tick the day off below |
+|---|---|
+| 12 min | Read `python/theory.md` |
+| 18 min | Do `python/practice.py` until `pytest days/day-NN/python` is green, then the day's `project/` feature |
+| 12 min | Read `database/theory.md` |
+| 18 min | Run `database/practice.sql` in `psql` and write each query |
 
-Rules for myself: try first, peek later. If I'm stuck for more than 10 minutes on one question, read only the hint, not the full solution.
+Rule: try first, peek later. Solutions only after my own attempt.
 
 ### Setup (once)
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-pip install jupyterlab pytest mypy
-jupyter lab            # or open the .ipynb files in VS Code with the Jupyter extension
+pip install pytest
+brew install postgresql@17 && brew services start postgresql@17   # see Day 1 database/theory.md
+createdb interview_prep
 ```
 
-Use Python **3.12+** (`python3 --version`).
+Run one day's Python tests with `pytest days/day-NN/python`. Run the project tests with `pytest project`. (Run one day at a time: every day has a `test_practice.py`.)
+
+---
+
+## Commands I use with Claude Code
+
+| Command | What it does |
+|---|---|
+| `Day N` / `start Day N` / `generate today` | Generate that day's folder following the rules in the next section |
+| `quiz day N` | 10 rapid-fire interview questions on that day's topics, one at a time; waits for my answer and grades it |
+| `show solutions day N` | Write solutions with explanations into `days/day-NN/solutions/` |
+| `revise days A-B` | One-page revision sheet of those days |
+| `mock interview` | Claude acts as a client interviewer (Day 15) |
+
+After each day, update the **Progress Tracker** below.
+
+## Daily generation rules (for Claude Code)
+
+**theory.md format (Python and DB)**
+1. **Why this matters in interviews**: 2–3 lines.
+2. **Core concepts**: short explanations, each with a small code/SQL example.
+3. **Common pitfalls / gotchas**: the traps interviewers like to test.
+4. **Top interview questions**: 8–10 questions with crisp model answers (under 60 seconds out loud).
+5. **One-line cheat sheet**: a recap I can revise in 2 minutes before an interview.
+
+Each theory file is readable in about 12 minutes, so the remaining ~18 minutes go to practice.
+
+**practice files format**
+- 5–7 exercises, ordered easy → medium → interview-level. At least one is a real interview-style question.
+- Python: function stubs + docstrings + pytest tests.
+- SQL: each exercise has a comment with the question and the expected output shape (columns).
+- No solutions in the practice files.
+
+**Running projects (consistent across all days)**
+- **Python mini-project:** a "Task Manager" that grows daily (functions → classes → file storage → database → REST API on Day 13). Each day adds one small feature in `project/`.
+- **Database:** one shared **e-commerce + company schema** in PostgreSQL, created on Day 1 and extended later: `departments, employees, customers, products, categories, orders, order_items, payments`. Reused every day.
 
 ---
 
 ## Roadmap
 
-### Phase 1: Python through JavaScript eyes (Days 1–5)
-Get the syntax and the core built-in types right, and unlearn JS habits.
+### Week 1: Foundations
 
-| Day | Topic | Key points |
-|-----|-------|------------|
-| 1 | Syntax and mental model | REPL, indentation, truthiness, `None` vs `null`/`undefined`, `is` vs `==`, f-strings, everything is an object |
-| 2 | Numbers and strings | big ints, `//` `%` `**`, string methods, slicing `s[::-1]`, immutability |
-| 3 | Lists and tuples | mutability, slicing, unpacking `a, *rest = ...`, copy vs reference, shallow vs deep copy |
-| 4 | Dicts and sets | `get`/`setdefault`, iterating items, set algebra, hashability (why lists can't be keys) |
-| 5 | Control flow | `for`/`else`, `range`, `enumerate`, `zip`, `while`, walrus `:=`, `match` (structural pattern matching) |
+**Day 1 · Mon Nov 16: Setup & Basics** ([open](days/day-01/))
+- **Python:** installing Python, venv, running scripts; variables, data types (int, float, str, bool, None); dynamic typing; mutable vs immutable; `type()`, `id()`, `is` vs `==`; input/output; f-strings.
+- **Database:** what a database is, DBMS vs RDBMS, SQL vs NoSQL overview; install PostgreSQL; tables, rows, columns, data types (INT, VARCHAR, TEXT, NUMERIC, DATE, TIMESTAMP, BOOLEAN); `CREATE TABLE`, `INSERT`, basic `SELECT`. Create the shared schema.
+- **Interview focus:** "Is Python compiled or interpreted?", "Mutable vs immutable?", "What is an RDBMS?"
 
-### Phase 2: Pythonic idioms (Days 6–11)
-Write Python that looks like Python, not translated JS.
+**Day 2 · Tue Nov 17: Strings, Lists, Tuples | Filtering Data**
+- **Python:** string methods, slicing, list operations & methods, tuples, packing/unpacking, list comprehensions (intro).
+- **Database:** `WHERE`, comparison/logical operators, `IN`, `BETWEEN`, `LIKE`/`ILIKE`, `IS NULL`, `ORDER BY`, `LIMIT/OFFSET`, `DISTINCT`, aliases.
+- **Interview focus:** list vs tuple, reversing a string, NULL behavior in comparisons.
 
-| Day | Topic | Key points |
-|-----|-------|------------|
-| 6 | Comprehensions | list/dict/set comprehensions, nested, conditional, when *not* to use them |
-| 7 | Functions in depth | defaults (mutable default trap), `*args`/`**kwargs`, keyword-only and positional-only params |
-| 8 | Scope and closures | LEGB, `nonlocal`, `global`, late-binding closures in loops |
-| 9 | Functional tools | `lambda`, `sorted(key=...)`, `min`/`max` with key, `map`/`filter` vs comprehensions, `functools.partial`/`reduce` |
-| 10 | `collections` module | `Counter`, `defaultdict`, `deque`, `namedtuple`, `ChainMap` |
-| 11 | **Kata day** | mixed problems from Days 1–10, timed |
+**Day 3 · Wed Nov 18: Dicts & Sets | Aggregation**
+- **Python:** dictionaries, sets, dict/set comprehensions, iteration patterns, shallow vs deep copy, hashability.
+- **Database:** `COUNT, SUM, AVG, MIN, MAX`, `GROUP BY`, `HAVING`, `WHERE` vs `HAVING`, logical order of SQL execution (FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY → LIMIT).
+- **Interview focus:** "Why can't a list be a dict key?", count word frequency, `COUNT(*)` vs `COUNT(col)`.
 
-### Phase 3: Errors, files and modules (Days 12–16)
+**Day 4 · Thu Nov 19: Functions | Constraints & Relationships**
+- **Python:** control flow, functions, `*args/**kwargs`, default arguments, mutable default pitfall, LEGB scope, `global/nonlocal`, lambda, `map/filter/sorted` with keys.
+- **Database:** PRIMARY KEY, FOREIGN KEY, UNIQUE, NOT NULL, CHECK, DEFAULT; 1:1, 1:N, M:N relationships (junction tables); `UPDATE`, `DELETE`, `ON DELETE CASCADE`; `DELETE` vs `TRUNCATE` vs `DROP`.
+- **Interview focus:** mutable default argument bug, primary vs unique key, designing M:N.
 
-| Day | Topic | Key points |
-|-----|-------|------------|
-| 12 | Exceptions | `try`/`except`/`else`/`finally`, raising, custom exception classes, chaining, EAFP vs LBYL |
-| 13 | Files and paths | `pathlib`, `with open(...)`, text vs bytes, `json`, `csv` |
-| 14 | Modules and packages | imports, `__init__.py`, `if __name__ == "__main__"`, venv and pip, `pyproject.toml` basics |
-| 15 | Standard library tour | `datetime`, `itertools` preview, `re` basics, `os`/`sys`, `argparse` |
-| 16 | **Mini project** | CLI log analyzer: parse a log file, aggregate with `Counter`, output a report |
+**Day 5 · Fri Nov 20: Errors & Files | JOINs**
+- **Python:** `try/except/else/finally`, raising and custom exceptions, file handling, `with` / context managers, JSON and CSV read/write. Project: save tasks to a JSON file.
+- **Database:** INNER, LEFT, RIGHT, FULL OUTER, CROSS, SELF JOIN; join conditions vs filters; finding unmatched rows with LEFT JOIN + NULL.
+- **Interview focus:** "What does `finally` guarantee?", "Customers who never ordered", employee–manager self join.
 
-### Phase 4: Object-oriented Python (Days 17–23)
+**Day 6 · Sat Nov 21: OOP Part 1 | Subqueries & Set Operations**
+- **Python:** classes & objects, `__init__`, `self`, instance vs class attributes, `@classmethod`, `@staticmethod`, `@property`, encapsulation. Project: convert Task Manager to classes.
+- **Database:** subqueries (scalar, in `FROM`, in `WHERE`), correlated subqueries, `EXISTS` vs `IN`, `UNION` vs `UNION ALL`, `INTERSECT`, `EXCEPT`.
+- **Interview focus:** classmethod vs staticmethod, second-highest salary, UNION vs UNION ALL.
 
-| Day | Topic | Key points |
-|-----|-------|------------|
-| 17 | Classes | `__init__`, `self`, instance vs class attributes, how this differs from JS classes and prototypes |
-| 18 | Dunder methods (data model) | `__repr__`, `__str__`, `__eq__`, `__hash__`, `__len__`, `__getitem__`, `__lt__`, operator overloading |
-| 19 | Inheritance | `super()`, MRO, multiple inheritance and mixins, composition over inheritance |
-| 20 | Attributes and methods | `@property`, `@classmethod`, `@staticmethod`, "private" by convention `_x`/`__x`, `__slots__` |
-| 21 | `dataclasses` and `enum` | `@dataclass` (frozen, ordering, defaults), `Enum`, `StrEnum` |
-| 22 | Duck typing and interfaces | `abc.ABC`, `typing.Protocol`, when to use which |
-| 23 | **Mini project** | library or bank system with classes, dataclasses and custom exceptions |
+**Day 7 · Sun Nov 22: OOP Part 2 | Normalization & Schema Design**
+- **Python:** inheritance, `super()`, MRO, polymorphism, abstraction (`abc`), dunder methods (`__str__`, `__repr__`, `__eq__`, `__len__`), `dataclasses`.
+- **Database:** normalization 1NF → 2NF → 3NF → BCNF, anomalies, when to denormalize, ER diagrams; design a schema from a client requirement.
+- **Interview focus:** 4 pillars of OOP, `__str__` vs `__repr__`, "Normalize this table", "Design the DB for a booking app".
+- **+ Weekly revision:** `revise days 1-7` and `quiz` on weak areas.
 
-### Phase 5: Iteration, generators and decorators (Days 24–29)
-The part that makes Python feel powerful.
+### Week 2: Intermediate & Interview-Level
 
-| Day | Topic | Key points |
-|-----|-------|------------|
-| 24 | Iterator protocol | `__iter__`/`__next__`, `iter()`/`next()`, `StopIteration`, iterables vs iterators |
-| 25 | Generators | `yield`, generator expressions, lazy pipelines, `yield from` (compare with JS `function*`) |
-| 26 | `itertools` deep dive | `chain`, `groupby`, `islice`, `product`, `permutations`, `accumulate`, `pairwise`, `batched` |
-| 27 | Decorators I | functions as objects, wrapping, `functools.wraps`, timing/logging decorators |
-| 28 | Decorators II | decorators with arguments, class decorators, `functools.cache`/`lru_cache`, retry decorator |
-| 29 | Context managers | `__enter__`/`__exit__`, `contextlib.contextmanager`, `suppress`, `ExitStack` |
+**Day 8 · Mon Nov 23: Iterators, Generators, Decorators | Indexes**
+- **Python:** iterables vs iterators, `iter/next`, generators & `yield`, generator expressions, closures, decorators (with arguments, `functools.wraps`). Write a timing/logging decorator.
+- **Database:** how indexes work (B-tree), single vs composite indexes, column order, unique and partial indexes, when indexes hurt, `EXPLAIN` / `EXPLAIN ANALYZE`, clustered vs non-clustered (concept).
+- **Interview focus:** generator vs list memory, "Write a decorator", "Why is my query slow?"
 
-### Phase 6: Modern, production-style Python (Days 30–35)
+**Day 9 · Tue Nov 24: Modules & Typing | Window Functions & CTEs**
+- **Python:** modules, packages, `__name__ == "__main__"`, imports, pip & `requirements.txt`, type hints, PEP 8, project structure.
+- **Database:** CTEs (`WITH`), recursive CTEs (org chart), window functions: `ROW_NUMBER`, `RANK`, `DENSE_RANK`, `LAG/LEAD`, running totals, `PARTITION BY`.
+- **Interview focus:** RANK vs DENSE_RANK, top-N per group, month-over-month growth.
 
-| Day | Topic | Key points |
-|-----|-------|------------|
-| 30 | Type hints | `list[int]`, `X \| None`, `TypedDict`, generics, `Callable`, running `mypy` (compare with TypeScript) |
-| 31 | Testing with pytest | asserts, fixtures, `parametrize`, testing exceptions, `monkeypatch` |
-| 32 | Concurrency I | threads vs processes, the GIL (and free-threaded builds), `concurrent.futures` |
-| 33 | Concurrency II: `asyncio` | event loop, `async`/`await`, `gather`, `TaskGroup`, compare with JS Promises |
-| 34 | HTTP and JSON | `httpx`/`requests`, calling a real API, handling errors and timeouts |
-| 35 | Debugging and performance | `logging`, `breakpoint()`/pdb, `timeit`, `cProfile`, big-O of built-ins |
+**Day 10 · Wed Nov 25: Problem Solving | Transactions**
+- **Python:** Big-O basics; `collections` (`Counter`, `defaultdict`, `deque`, `namedtuple`), `heapq`; patterns: hash map, two pointers, sliding window. Classic problems: two-sum, anagrams, duplicates, valid parentheses.
+- **Database:** transactions, `BEGIN/COMMIT/ROLLBACK`, savepoints, ACID, isolation levels, dirty/non-repeatable/phantom reads, locking, deadlocks.
+- **Interview focus:** live coding of 2–3 easy/medium problems, "Explain ACID with a bank transfer".
 
-### Phase 7: DSA in Python and capstone (Days 36–42)
+**Day 11 · Thu Nov 26: Python Internals & Concurrency | Advanced DB Objects & Security**
+- **Python:** memory management, reference counting & garbage collection, the GIL, threading vs multiprocessing vs asyncio (when to use which), `async/await` basics.
+- **Database:** views & materialized views, functions/stored procedures, triggers, roles & permissions, SQL injection and parameterized queries.
+- **Interview focus:** "What is the GIL?", "Is Python good for concurrency?", "How do you prevent SQL injection?"
 
-| Day | Topic | Key points |
-|-----|-------|------------|
-| 36 | Python for DSA | `heapq`, `bisect`, `deque`, sorting stability, built-in complexity cheat sheet |
-| 37 | Arrays, strings and hashing | two pointers, sliding window, frequency maps (LeetCode-style) |
-| 38 | Recursion and memoization | recursion limit, `@cache`, turning recursion into iteration |
-| 39 | Graphs | adjacency lists with `defaultdict`, BFS with `deque`, DFS, topological sort |
-| 40 | Capstone I | FastAPI basics: routes, Pydantic models, typed request/response |
-| 41 | Capstone II | build a small REST service (e.g. a task tracker) with tests and type hints |
-| 42 | Review and retrospective | re-solve the 5 hardest questions from earlier days, write what I learned |
+**Day 12 · Fri Nov 27: Python ↔ Database | NoSQL & Caching**
+- **Python:** `psycopg` (PostgreSQL driver), connections & cursors, parameterized queries, transactions from code; SQLAlchemy ORM basics (models, session, CRUD). Project: move Task Manager storage to PostgreSQL.
+- **Database:** MongoDB basics (documents, collections), SQL vs NoSQL trade-offs, CAP theorem, Redis as a cache, when to choose what.
+- **Interview focus:** ORM vs raw SQL, "SQL or NoSQL for this project?", connection pooling.
+
+**Day 13 · Sat Nov 28: REST API (Full-Stack Bridge) | Production DB Concerns**
+- **Python:** FastAPI CRUD API for the Task Manager: routes, path/query params, Pydantic models, HTTP methods & status codes, REST principles, CORS (for a frontend). How a frontend talks to this API.
+- **Database:** migrations (Alembic), N+1 query problem, pagination strategies, connection pooling, backups.
+- **Interview focus:** "Walk me through a request from the browser to the DB", PUT vs PATCH, 401 vs 403, N+1.
+
+**Day 14 · Sun Nov 29: Testing & Best Practices | SQL Interview Problem Set & Scaling**
+- **Python:** `pytest` (fixtures, parametrize), mocking basics, logging, env variables & config, clean code, Git workflow basics.
+- **Database:** classic SQL interview problems (Nth highest salary, duplicates, consecutive records, top-N per group, pivoting with `CASE`, employees earning more than managers); scaling: replication, partitioning, sharding, read replicas.
+- **Interview focus:** timed problem solving, "How would you scale this DB to 10x users?"
+
+**Day 15 · Mon Nov 30: Full Mock Interview**
+- **Python (30 min):** Claude acts as a client interviewer: 10 concept questions + 2 live coding problems + 1 "explain your project" question. Grade each answer and suggest a better answer.
+- **Database (30 min):** 5 SQL queries on the shared schema + 1 schema design from a client brief + 5 concept questions.
+- **Also prepare:** a 2-minute self-introduction, a 3-minute walkthrough of the Task Manager project (architecture: FastAPI + PostgreSQL), and answers to "Why should we pick you for this project?"
+- **Output:** a final report with strengths, weak topics, and a 7-day follow-up plan (next: frontend: HTML/CSS/JS/React).
+
+---
+
+## Interview priority map (if time is short, never skip these)
+
+| Python | Database |
+|---|---|
+| Mutable vs immutable, list/dict/set | JOINs (all types) |
+| Functions, `*args/**kwargs`, scope | GROUP BY / HAVING |
+| OOP (4 pillars, dunder methods) | Keys & constraints, normalization |
+| Exceptions & context managers | Indexes & query performance |
+| Generators & decorators | Window functions & CTEs |
+| GIL & concurrency basics | Transactions & ACID |
+| FastAPI + REST basics | SQL vs NoSQL, SQL injection |
 
 ---
 
 ## Progress tracker
 
-| Phase | Days | Status |
-|-------|------|--------|
-| 1. Python through JS eyes | 1–5 | ⬜ |
-| 2. Pythonic idioms | 6–11 | ⬜ |
-| 3. Errors, files, modules | 12–16 | ⬜ |
-| 4. OOP | 17–23 | ⬜ |
-| 5. Iteration, generators, decorators | 24–29 | ⬜ |
-| 6. Modern Python | 30–35 | ⬜ |
-| 7. DSA and capstone | 36–42 | ⬜ |
+| Day | Date | Python done | DB done | Confidence (1–5) | Weak topics |
+|---|---|---|---|---|---|
+| 1 | Nov 16 | [ ] | [ ] | | |
+| 2 | Nov 17 | [ ] | [ ] | | |
+| 3 | Nov 18 | [ ] | [ ] | | |
+| 4 | Nov 19 | [ ] | [ ] | | |
+| 5 | Nov 20 | [ ] | [ ] | | |
+| 6 | Nov 21 | [ ] | [ ] | | |
+| 7 | Nov 22 | [ ] | [ ] | | |
+| 8 | Nov 23 | [ ] | [ ] | | |
+| 9 | Nov 24 | [ ] | [ ] | | |
+| 10 | Nov 25 | [ ] | [ ] | | |
+| 11 | Nov 26 | [ ] | [ ] | | |
+| 12 | Nov 27 | [ ] | [ ] | | |
+| 13 | Nov 28 | [ ] | [ ] | | |
+| 14 | Nov 29 | [ ] | [ ] | | |
+| 15 | Nov 30 | [ ] | [ ] | | |
 
 ---
 
-## Resources
+## Archived: the 42-day Python plan (paused)
 
-**Core reading**
-- [The official Python Tutorial](https://docs.python.org/3/tutorial/): the canonical reference for syntax; skim the sections that match each day
-- [Learn Python for JavaScript Developers (freeCodeCamp handbook)](https://www.freecodecamp.org/news/learn-python-for-javascript-developers-handbook/): side-by-side JS ↔ Python, good for Phase 1
-- *Fluent Python* (2nd ed.), Luciano Ramalho: the best book for Phases 4–5 (data model, iterators, decorators)
-- *Effective Python* (3rd ed.), Brett Slatkin: short, item-by-item best practices
-- [Real Python](https://realpython.com/): in-depth tutorials for nearly every topic above
-
-**Practice platforms (for extra reps)**
-- [Exercism Python track](https://exercism.org/tracks/python): free, with volunteer mentoring
-- [Python Morsels](https://www.pythonmorsels.com/exercises/): short idiomatic exercises with topic paths (decorators, iterators, classes)
-- [Pybites](https://pybit.es/): bite-sized exercises from beginner to advanced
-- [awesome-python-practice](https://github.com/reuven/awesome-python-practice): curated list of practice resources
-- [LeetCode](https://leetcode.com/) / [NeetCode](https://neetcode.io/): for Phase 7
-
-**Roadmaps and video**
-- [roadmap.sh/python](https://roadmap.sh/python): community roadmap, used to check coverage of this plan
-- Corey Schafer (YouTube): clear explanations of the standard library, OOP and decorators
-- mCoding and ArjanCodes (YouTube): idiomatic and "clean code" Python
+The original 1-hour-a-day, Python-only plan (JS-to-Python, 7 phases, notebooks) is paused until the sprint ends. Day 1 is done and kept with the full roadmap in [archive/42-day-plan/](archive/42-day-plan/README.md). After Nov 30, resume from its Day 2, or fold its remaining topics (iteration protocols, `itertools`, typing, asyncio, DSA) into the 7-day follow-up plan from Day 15.
