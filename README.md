@@ -6,6 +6,8 @@ Everything is **interview-oriented**: concepts I can explain clearly, code I can
 
 > The earlier 42-day Python-only plan is paused. It lives in [archive/42-day-plan/](archive/42-day-plan/README.md) (see the bottom of this page).
 
+> **Python-only revision:** a separate 7-day notebook week based on *Python for Everybody*, aimed at Python + FastAPI backend roles, is in [revision-week/](revision-week/README.md).
+
 ---
 
 ## How each day works
