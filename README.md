@@ -4,7 +4,7 @@ Branch `python` of my learning log. I'm preparing for **client interviews on bac
 
 ## What's here
 
-- **[revision-week/](revision-week/README.md)** — a 7-day hands-on Python revision based on *Python for Everybody*. Each day has an `exercises.ipynb` (with self-checking cells) and a `solutions.ipynb`.
+- **[revision-week/](revision-week/README.md)** — a 10-day hands-on Python revision: *Python for Everybody* basics (Days 1-7), then internals, concurrency and production FastAPI (Days 8-10). Each day has an `exercises.ipynb` (with self-checking cells) and a `solutions.ipynb`.
 - **[project/](project/)** — a small Task Manager with tests (`pytest project`).
 
 ## Progress
@@ -18,3 +18,6 @@ Branch `python` of my learning log. I'm preparing for **client interviews on bac
 | 5 | OOP and exceptions | [ ] |
 | 6 | Intermediate Python | [ ] |
 | 7 | Backend Python | [ ] |
+| 8 | Python internals | [ ] |
+| 9 | Concurrency and async | [ ] |
+| 10 | Production FastAPI | [ ] |
